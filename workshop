@@ -1,0 +1,115 @@
+#include <iostream>
+#include "workshop.h"
+using namespace std;
+
+/*
+ * This main function demonstrates the usage of all functions
+ * implemented in workshop.h for parts 2, 3, 4, and 7.
+ */
+int main() {
+    // Part 2: changeValue demonstration
+    double num = 10;
+    cout << "Original value of num: " << num << endl;
+    changeValue(&num); // Pass address of num
+    cout << "After changeValue: " << num << endl;
+
+    // Part 3 & 4: printArray and arrayMax demonstration
+    double arr1[5] = {1.5, 3.2, 4.8, 2.9, 0.5};
+    cout << "Array contents: ";
+    printArray(arr1, 5); // Print array elements
+    cout << "Max value: " << arrayMax(arr1, 5) << endl; // Find maximum
+
+    // Part 7: dynamicArray demonstration
+    int N = 5;
+    double M = 7.5;
+    double* arr2 = dynamicArray(N, M); // Create dynamic array
+    cout << "Dynamic array with value " << M << ": ";
+    printArray(arr2, N); // Print dynamic array
+    cout << "Max value in dynamic array: " << arrayMax(arr2, N) << endl;
+    delete[] arr2; // Free allocated memory
+
+    return 0;
+}
+
+# Workshop Makefile (All in English)
+
+# Default target: build the project
+all: workshop
+
+# Linking stage: link main.o into the executable named workshop
+workshop: main.o
+	g++ -o workshop main.o
+
+# Compilation stage: compile main.cpp into object file main.o
+# Recompile if main.cpp or workshop.h changes
+main.o: main.cpp workshop.h
+	g++ -c main.cpp
+
+# Run the program
+run: workshop
+	./workshop
+
+# Clean up build files (object files and executable)
+clean:
+	rm -f workshop main.o
+
+#ifndef WORKSHOP_H
+#define WORKSHOP_H
+#include <iostream>
+using namespace std;
+
+/*
+ * Part 2: changeValue
+ * This function takes a pointer to a double as an argument.
+ * It modifies the value stored at the memory address to 42.
+ */
+void changeValue(double* ptr) {
+    if (ptr != nullptr) { // Check if pointer is not null
+        *ptr = 42; // Dereference pointer and change value
+    }
+}
+
+/*
+ * Part 3: printArray
+ * This function takes a pointer to a double array and its size.
+ * It prints all elements of the array to the console.
+ */
+void printArray(double* arr, int size) {
+    for (int i = 0; i < size; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+}
+
+/*
+ * Part 4: arrayMax
+ * This function takes a pointer to a double array and its size.
+ * It returns the maximum value in the array.
+ */
+double arrayMax(double* arr, int size) {
+    if (size <= 0 || arr == nullptr) return 0; // Handle invalid inputs
+    double maxVal = arr[0];
+    for (int i = 1; i < size; i++) {
+        if (arr[i] > maxVal) {
+            maxVal = arr[i];
+        }
+    }
+    return maxVal;
+}
+
+/*
+ * Part 7: dynamicArray
+ * This function takes an integer N (size) and a double M (initial value).
+ * It dynamically allocates a double array of size N, initializes all elements to M,
+ * and returns the pointer to the array.
+ */
+double* dynamicArray(int N, double M) {
+    if (N <= 0) return nullptr; // Invalid size
+    double* arr = new double[N]; // Allocate memory on heap
+    for (int i = 0; i < N; i++) {
+        arr[i] = M;
+    }
+    return arr;
+}
+
+#endif
