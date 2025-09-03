@@ -1,13 +1,25 @@
+#include "wizard.h"
+#include "warrior.h"
 #include <iostream>
-using namespace std;
-int sum_diagonal(int array[4][4]);
+
 int main() {
-    int matrix[4][4] = {
-        {1,2,3,4},
-        {5,6,7,8},
-        {9,10,11,12},
-        {13,14,15,16}
-    };
-    cout << "Sum of main diagonal = " << sum_diagonal(matrix) << endl;
+    Wizard wizard("Merlin", 50, 5, 15);
+    Warrior warrior("Conan", 60, 10, "sword");
+
+    std::cout << "Battle begins!\n";
+
+    while (wizard.getHealth() > 0 && warrior.getHealth() > 0) {
+        wizard.castSpell(&warrior);
+        if (warrior.getHealth() <= 0) break;
+
+        warrior.swingWeapon(&wizard);
+        if (wizard.getHealth() <= 0) break;
+    }
+
+    if (wizard.getHealth() > 0)
+        std::cout << wizard.getName() << " wins!\n";
+    else
+        std::cout << warrior.getName() << " wins!\n";
+
     return 0;
 }
