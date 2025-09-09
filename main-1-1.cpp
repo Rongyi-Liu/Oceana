@@ -1,13 +1,13 @@
 #include <iostream>
+#include "Appliance.h"
 using namespace std;
-int sum_diagonal(int array[4][4]);
+
 int main() {
-    int matrix[4][4] = {
-        {1,2,3,4},
-        {5,6,7,8},
-        {9,10,11,12},
-        {13,14,15,16}
-    };
-    cout << "Sum of main diagonal = " << sum_diagonal(matrix) << endl;
-    return 0;
+    Appliance a1;
+    Appliance a2(150);
+
+    a1.turnOn();
+    cout << "Appliance 1 is on? " << a1.getIsOn() << endl;
+    cout << "Appliance 2 power rating: " << a2.getPowerRating() << endl;
+    cout << "Appliance 2 consumption: " << a2.getPowerConsumption() << endl;
 }

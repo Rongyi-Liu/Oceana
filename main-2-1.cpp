@@ -1,12 +1,10 @@
 #include <iostream>
-#include <string>
-
-void print_binary_str(std::string decimal_number);
+#include "Fridge.h"
+using namespace std;
 
 int main() {
-    // Example runs
-    print_binary_str("13");      // expected 1101
-    print_binary_str("0");       // expected 0
-    print_binary_str("789");     // prints binary of 789
-    return 0;
+    Fridge f1(150, 300);
+    f1.turnOn();
+    cout << "Fridge volume: " << f1.getVolume() << "L" << endl;
+    cout << "Fridge consumption: " << f1.getPowerConsumption() << endl;
 }
